@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AngkorMart — Premium Online Store</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="#" class="logo" onclick="showPage('home')">AngkorMart</a>
+    <nav class="nav">
+      <button onclick="showPage('home')" class="nav-btn active" id="nav-home">Home</button>
+      <button onclick="showPage('products')" class="nav-btn" id="nav-products">Products</button>
+      <button onclick="showPage('cart')" class="nav-btn cart-btn" id="nav-cart">
+        Cart <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+      <button onclick="showPage('checkout')" class="nav-btn" id="nav-checkout">Checkout</button>
+      <button onclick="showPage('login')" class="nav-btn" id="nav-login">Login</button>
+      <button onclick="showPage('about')" class="nav-btn" id="nav-about">About</button>
+      <button onclick="showPage('contact')" class="nav-btn" id="nav-contact">Contact</button>
+    </nav>
+  </header>
+
+  <main class="main">
+
+    <!-- ===== HOME ===== -->
+    <div id="page-home" class="page active">
+
+      <section class="hero">
+        <div class="hero-inner">
+          <span class="hero-tag">Sangkran Mega Sale 🎉</span>
+          <h1 class="hero-title">Shop <span>Premium</span><br>Products, Fast.</h1>
+          <p class="hero-sub">Up to 50% OFF on selected items — limited time only.</p>
+          <div class="hero-btns">
+            <button class="btn-gold" onclick="showPage('products')">Shop Now</button>
+            <button class="btn-outline" onclick="showPage('about')">Learn More</button>
+          </div>
+        </div>
+        <div class="hero-deco"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">Categories</h2>
+          <p class="section-sub">Browse by department</p>
+        </div>
+        <div class="cats-grid">
+          <div class="cat-card" onclick="showPage('products')"><span class="cat-icon">👕</span><span
+              class="cat-label">Clothes</span></div>
+          <div class="cat-card" onclick="showPage('products')"><span class="cat-icon">💻</span><span
+              class="cat-label">Electronics</span></div>
+          <div class="cat-card" onclick="showPage('products')"><span class="cat-icon">⌚</span><span
+              class="cat-label">Accessories</span></div>
+          <div class="cat-card" onclick="showPage('products')"><span class="cat-icon">👟</span><span
+              class="cat-label">Shoes</span></div>
+        </div>
+      </section>
+
+      <!-- BANNER SLIDER -->
+      <section class="slider-section">
+        <div class="slider-container">
+          <div class="slider-wrapper" id="slider-wrapper">
+            <div class="slide"><img src="Banner/1.png" alt="Promo 1"></div>
+            <div class="slide"><img src="Banner/2.png" alt="Promo 2"></div>
+            <div class="slide"><img src="Banner/3.png" alt="Promo 3"></div>
+            <div class="slide"><img src="Banner/1.png" alt="Promo 4"></div>
+          </div>
+          <button class="slider-btn slider-prev" onclick="moveSlider(-1)">&#8249;</button>
+          <button class="slider-btn slider-next" onclick="moveSlider(1)">&#8250;</button>
+          <div class="slider-dots" id="slider-dots"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">Featured Products</h2>
+          <p class="section-sub">Handpicked for you</p>
+        </div>
+        <div class="products-grid" id="home-products"></div>
+      </section>
+    </div>
+
+    <!-- ===== PRODUCTS ===== -->
+    <div id="page-products" class="page">
+      <div class="page-header">
+        <h2 class="page-title">All Products</h2>
+        <p class="page-sub">6 items available</p>
+      </div>
+      <div class="section" style="padding-top:12px;">
+        <div class="products-grid" id="all-products"></div>
+      </div>
+    </div>
+
+    <!-- ===== PRODUCT DETAIL ===== -->
+    <div id="page-detail" class="page">
+      <div class="detail-layout">
+        <div class="detail-img-box" id="detail-img">🎧</div>
+        <div class="detail-info">
+          <h1 class="detail-name" id="detail-name">Premium Wireless Headphones</h1>
+          <div class="detail-rating">★★★★★ &nbsp;<span>(128 reviews)</span></div>
+          <div class="detail-price" id="detail-price">$59.00</div>
+          <p class="detail-desc" id="detail-desc">High-quality sound with noise-canceling features and long-lasting
+            battery life.</p>
+          <div class="qty-row">
+            <span class="qty-label">Quantity</span>
+            <div class="qty-control">
+              <button onclick="changeDetailQty(-1)">−</button>
+              <span id="detail-qty">1</span>
+              <button onclick="changeDetailQty(1)">+</button>
+            </div>
+          </div>
+          <div class="detail-btns">
+            <button class="btn-main" onclick="addCurrentToCart()">Add to Cart</button>
+            <button class="btn-outline-dark" onclick="showPage('products')">← Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CART ===== -->
+    <div id="page-cart" class="page">
+      <div class="page-header">
+        <h2 class="page-title">Shopping Cart</h2>
+      </div>
+      <div class="section" id="cart-content"></div>
+    </div>
+
+    <!-- ===== CHECKOUT ===== -->
+    <div id="page-checkout" class="page">
+      <div class="page-header">
+        <h2 class="page-title">Checkout</h2>
+      </div>
+      <div class="checkout-layout">
+        <div class="form-card">
+          <h3 class="form-card-title">Customer Information</h3>
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Sokha Dara">
+          </div>
+          <div class="form-group">
+            <label>Delivery Address</label>
+            <input type="text" placeholder="Street, Sangkat, Khan, City">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+855 12 345 678">
+          </div>
+          <div class="form-group">
+            <label>Payment Method</label>
+            <select>
+              <option>ABA Pay / KHQR</option>
+              <option>Wing Wallet</option>
+              <option>Cash on Delivery</option>
+            </select>
+          </div>
+          <button class="btn-main full-w" onclick="placeOrder()">Place Order →</button>
+        </div>
+        <div class="order-summary-card" id="checkout-summary">
+          <h3 class="order-summary-title">Order Summary</h3>
+          <p style="color:#888;font-size:13px;">Your cart is empty.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LOGIN ===== -->
+    <div id="page-login" class="page">
+      <div class="page-header">
+        <h2 class="page-title">Account</h2>
+      </div>
+      <div class="login-layout">
+        <div class="form-card">
+          <h3 class="form-card-title">Sign In</h3>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" placeholder="••••••••">
+          </div>
+          <button class="btn-main full-w" onclick="showToast('Logged in successfully! 👋')">Login</button>
+          <p class="form-footer">Forgot password? <a href="#">Reset here</a></p>
+        </div>
+        <div class="form-card">
+          <h3 class="form-card-title">Create Account</h3>
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Sokha Dara">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" placeholder="Min. 6 characters">
+          </div>
+          <button class="btn-gold full-w" onclick="showToast('Account created! Welcome 🎉')">Register</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ABOUT ===== -->
+    <div id="page-about" class="page">
+      <div class="about-hero">
+        <h1>About AngkorMart</h1>
+        <p>Cambodia's trusted destination for premium tech and lifestyle products since 2020.</p>
+      </div>
+      <div class="about-features">
+        <div class="feature-card">
+          <div class="feature-icon">🚚</div>
+          <h3 class="feature-title">Fast Delivery</h3>
+          <p class="feature-desc">Nationwide delivery inside Cambodia within 1–3 business days.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3 class="feature-title">24/7 Support</h3>
+          <p class="feature-desc">Our team is always available to assist you anytime, any day.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✅</div>
+          <h3 class="feature-title">Quality Guarantee</h3>
+          <p class="feature-desc">Every product is vetted for quality. Not satisfied? We'll fix it.</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="about-text-card">
+          <h3>Our Story</h3>
+          <p>Welcome to AngkorMart, your number one source for quality tech products and apparel. We are dedicated to
+            providing you the very best experience, with a focus on dependability, customer service, and uniqueness.</p>
+          <br>
+          <h3>Our Services</h3>
+          <ul class="about-list">
+            <li>Fast delivery nationwide inside Cambodia</li>
+            <li>24/7 customer support via phone &amp; chat</li>
+            <li>High-quality product guarantee on all items</li>
+            <li>Easy returns within 7 days of purchase</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONTACT ===== -->
+    <div id="page-contact" class="page">
+      <div class="page-header">
+        <h2 class="page-title">Get in Touch</h2>
+        <p class="page-sub">We'd love to hear from you</p>
+      </div>
+      <div class="contact-layout">
+        <div class="form-card">
+          <h3 class="form-card-title">Send a Message</h3>
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Full name">
+          </div>
+          <div class="form-group">
+            <label>Email or Phone</label>
+            <input type="text" placeholder="contact@email.com or +855...">
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="How can we help you?"></textarea>
+          </div>
+          <button class="btn-main full-w" onclick="showToast('Message sent! We\'ll reply soon 📩')">Send
+            Message</button>
+        </div>
+        <div class="contact-info-card">
+          <h3>Our Office</h3>
+          <div class="contact-detail">
+            <span class="c-icon">📧</span>
+            <span>info@angkormart.com</span>
+          </div>
+          <div class="contact-detail">
+            <span class="c-icon">📞</span>
+            <span>+855 12 345 678</span>
+          </div>
+          <div class="contact-detail">
+            <span class="c-icon">📍</span>
+            <span>Phnom Penh, Cambodia</span>
+          </div>
+          <div class="contact-detail">
+            <span class="c-icon">🕐</span>
+            <span>Mon–Sat, 8am – 8pm</span>
+          </div>
+          <div class="map-wrapper">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3909.058172008122!2d104.91428977582662!3d11.547684888651858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109511f69ba6309%3A0xc65060947881cb4e!2sBELTEI%20International%20University%20(Campus%201%2C%20Tuol%20Sleng)!5e0!3m2!1sen!2skh!4v1781141581134!5m2!1sen!2skh"
+              width="100%" height="220" style="border:0;border-radius:8px;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <a class="map-link-btn" href="https://maps.google.com/?q=BELTEI+International+University+Phnom+Penh" target="_blank" rel="noopener">
+              📍 Open in Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SUCCESS ===== -->
+    <div id="page-success" class="page">
+      <div class="success-screen">
+        <div class="success-icon">🎉</div>
+        <h2>Order Placed!</h2>
+        <p>Thank you for shopping with AngkorMart.<br>Your order is on its way.</p>
+        <button class="btn-gold" onclick="showPage('home')">Continue Shopping →</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-logo">AngkorMart</span>
+      <p>&copy; 2026 AngkorMart. All rights reserved. Made with ❤️ in Cambodia.</p>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* ---- DATA ---- */
+    const products = [
+      { id: 1, name: 'Premium Smart Watch', price: 99, oldPrice: 149, icon: '⌚', badge: '-33%', desc: 'Elegant smartwatch with health tracking, GPS, and 7-day battery life.' },
+      { id: 2, name: 'Wireless Headphones', price: 59, oldPrice: 89, icon: '🎧', badge: '-34%', desc: 'High-quality sound with noise-canceling and long-lasting battery.' },
+      { id: 3, name: 'Casual T-Shirt', price: 15, oldPrice: null, icon: '👕', badge: null, desc: 'Premium cotton, relaxed fit. Available in multiple colors.' },
+      { id: 4, name: 'Running Sneakers', price: 65, oldPrice: 90, icon: '👟', badge: '-28%', desc: 'Lightweight and responsive sole for everyday runs.' },
+      { id: 5, name: 'Laptop Sleeve', price: 18, oldPrice: null, icon: '💼', badge: null, desc: 'Water-resistant neoprene sleeve for laptops up to 15 inches.' },
+      { id: 6, name: 'Bluetooth Speaker', price: 45, oldPrice: 60, icon: '🔊', badge: '-25%', desc: '360° sound, waterproof, 12-hour playback. Perfect for outdoors.' },
+    ];
+
+    let cart = [];
+    let detailQty = 1;
+    let currentProduct = null;
+
+    /* ---- RENDER PRODUCT CARD ---- */
+    function productCard(p) {
+      return `<div class="prod-card" onclick="openDetail(${p.id})">
+        <div class="prod-img">
+          <span class="prod-emoji">${p.icon}</span>
+          ${p.badge ? `<span class="prod-badge">${p.badge}</span>` : ''}
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">${p.name}</div>
+          <div class="prod-rating">★★★★★</div>
+          <div class="prod-bottom">
+            <div class="prod-price">
+              ${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ''}$${p.price}
+            </div>
+            <button class="add-btn" onclick="event.stopPropagation(); quickAdd(${p.id})" title="Quick add">+</button>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function renderProducts() {
+      document.getElementById('home-products').innerHTML = products.slice(0, 3).map(productCard).join('');
+      document.getElementById('all-products').innerHTML = products.map(productCard).join('');
+    }
+
+    /* ---- DETAIL ---- */
+    function openDetail(id) {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      currentProduct = p;
+      detailQty = 1;
+      document.getElementById('detail-img').textContent = p.icon;
+      document.getElementById('detail-name').textContent = p.name;
+      document.getElementById('detail-price').textContent = '$' + p.price + '.00';
+      document.getElementById('detail-desc').textContent = p.desc;
+      document.getElementById('detail-qty').textContent = 1;
+      showPage('detail');
+    }
+
+    function changeDetailQty(d) {
+      detailQty = Math.max(1, detailQty + d);
+      document.getElementById('detail-qty').textContent = detailQty;
+    }
+
+    function addCurrentToCart() {
+      if (!currentProduct) return;
+      addToCart(currentProduct, detailQty);
+      showToast(currentProduct.name + ' added to cart 🛒');
+      showPage('cart');
+    }
+
+    function quickAdd(id) {
+      const p = products.find(x => x.id === id);
+      if (p) { addToCart(p, 1); showToast(p.name + ' added to cart 🛒'); }
+    }
+
+    /* ---- CART ---- */
+    function addToCart(product, qty) {
+      const existing = cart.find(i => i.id === product.id);
+      if (existing) existing.qty += qty;
+      else cart.push({ ...product, qty });
+      updateBadge();
+    }
+
+    function updateBadge() {
+      document.getElementById('cart-badge').textContent = cart.reduce((s, i) => s + i.qty, 0);
+    }
+
+    function renderCart() {
+      const el = document.getElementById('cart-content');
+      if (cart.length === 0) {
+        el.innerHTML = `<div class="cart-empty">
+          <div class="empty-icon">🛒</div>
+          <p>Your cart is empty.</p>
+          <button class="btn-gold" onclick="showPage('products')" style="margin-top:16px;">Start Shopping</button>
+        </div>`;
+        return;
+      }
+      const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      el.innerHTML = `
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th><th>Price</th><th>Qty</th><th>Total</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${cart.map((item, idx) => `<tr>
+              <td>
+                <div class="cart-item-info">
+                  <div class="cart-thumb">${item.icon}</div>
+                  <div>
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-sub">Unit: $${item.price}</div>
+                  </div>
+                </div>
+              </td>
+              <td>$${item.price}</td>
+              <td>
+                <div class="qty-sm">
+                  <button onclick="cartQty(${idx},-1)">−</button>
+                  <span>${item.qty}</span>
+                  <button onclick="cartQty(${idx},1)">+</button>
+                </div>
+              </td>
+              <td><strong>$${item.price * item.qty}</strong></td>
+              <td><button class="remove-btn" onclick="removeItem(${idx})">Remove</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        <div class="cart-summary-bar">
+          <div>
+            <div class="cart-total-label">Order Total</div>
+            <div class="cart-total-amount">$${subtotal}.00</div>
+          </div>
+          <button class="btn-gold" onclick="showPage('checkout')">Proceed to Checkout →</button>
+        </div>`;
+      renderCheckoutSummary(subtotal);
+    }
+
+    function cartQty(idx, d) {
+      cart[idx].qty = Math.max(1, cart[idx].qty + d);
+      updateBadge(); renderCart();
+    }
+
+    function removeItem(idx) {
+      cart.splice(idx, 1);
+      updateBadge(); renderCart();
+    }
+
+    function renderCheckoutSummary(subtotal) {
+      const el = document.getElementById('checkout-summary');
+      if (!el) return;
+      const shipping = 2;
+      if (cart.length === 0) {
+        el.innerHTML = `<h3 class="order-summary-title">Order Summary</h3><p style="color:#888;font-size:13px;">No items yet.</p>`;
+        return;
+      }
+      el.innerHTML = `<h3 class="order-summary-title">Order Summary</h3>
+        ${cart.map(i => `<div class="order-line"><span>${i.name} ×${i.qty}</span><span>$${i.price * i.qty}</span></div>`).join('')}
+        <div class="order-line"><span>Shipping</span><span>$${shipping}</span></div>
+        <hr class="order-divider">
+        <div class="order-total">
+          <span>Total</span>
+          <span>$${subtotal + shipping}</span>
+        </div>`;
+    }
+
+    function placeOrder() {
+      cart = [];
+      updateBadge();
+      showPage('success');
+    }
+
+    /* ---- NAVIGATION ---- */
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      const nb = document.getElementById('nav-' + name);
+      if (nb) nb.classList.add('active');
+      window.scrollTo(0, 0);
+      if (name === 'cart') renderCart();
+      if (name === 'checkout') {
+        const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        renderCheckoutSummary(subtotal);
+      }
+    }
+
+    /* ---- TOAST ---- */
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    /* ---- INIT ---- */
+    renderProducts();
+
+    /* ---- BANNER SLIDER ---- */
+    let sliderIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('slider-dots');
+    const totalSlides = slides.length;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    });
+
+    function goToSlide(n) {
+      sliderIndex = (n + totalSlides) % totalSlides;
+      document.getElementById('slider-wrapper').style.transform = `translateX(-${sliderIndex * 100}%)`;
+      document.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === sliderIndex));
+    }
+
+    function moveSlider(dir) { goToSlide(sliderIndex + dir); }
+
+    // Auto-play
+    setInterval(() => moveSlider(1), 4000);
+  </script>
+</body>
+
+</html>
